@@ -6,7 +6,7 @@ function Invoke-GuacamoleAPIRequest {
         [Parameter(Mandatory=$false)] [ValidateNotNullOrEmpty()] [string]$ContentType = "application/json"
     )
 
-    $URI = "$($Script:GuacamoleConnection.BaseURL)/$endpoint"
+    $URI = "$($Script:GuacamoleConnection.BaseURL)/$APIEndpoint"
     Write-Debug "$Methode`:$URI"
 
     if([string]::IsNullOrEmpty($body)){
