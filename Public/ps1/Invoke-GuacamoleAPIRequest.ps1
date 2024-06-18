@@ -11,7 +11,7 @@ function Invoke-GuacamoleAPIRequest {
 
     if([string]::IsNullOrEmpty($body)){
         $res = Invoke-RestMethod -URi $URI `
-            -Headers @{"Guacamole-Token" = $token} `
+            -Headers @{"Guacamole-Token" = $Script:GuacamoleConnection.GetToken()} `
             -Method $Methode `
             -ContentType $ContentType
     }else{
@@ -19,7 +19,7 @@ function Invoke-GuacamoleAPIRequest {
         Write-Debug "Body: $body"
         #Write-Debug $body
         $res = Invoke-RestMethod -URi $URI `
-            -Headers @{"Guacamole-Token" = $token} `
+            -Headers @{"Guacamole-Token" = $Script:GuacamoleConnection.GetToken()}  `
             -Body $Body `
             -Method $Methode `
             -ContentType $ContentType
