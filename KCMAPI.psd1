@@ -33,7 +33,7 @@ Copyright = '2024 by Andreas Zeller'
 Description = 'A module to manage a Keeper Connection Manager Server via its API'
 
 # Minimum version of the PowerShell engine required by this module
-# PowerShellVersion = ''
+ PowerShellVersion = '7'
 
 # Name of the PowerShell host required by this module
 # PowerShellHostName = ''
