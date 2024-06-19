@@ -8,6 +8,7 @@ class KCMAPIConnection {
 	[securestring]$Token
 	[string]$BaseURL
 	[string]$DataSource
+	[bool]$SkipCertificateCheck
 	[string]GetToken() {
 		return [pscredential]::new("placeholder", $this.Token).GetNetworkCredential().Password
 	}

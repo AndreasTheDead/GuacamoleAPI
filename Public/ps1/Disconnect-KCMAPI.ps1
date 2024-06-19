@@ -4,7 +4,7 @@ function Disconnect-KCMAPI {
     $Header = @{"Guacamole-Token" = $Script:KCMConnection.GetToken()}
 
     try{
-        Invoke-RestMethod -Uri $uri -Headers $Header -Method Delete
+        Invoke-RestMethod -Uri $uri -Headers $Header -Method Delete -SkipCertificateCheck:$($script:KCMConnection.SkipCertificateCheck)
         $script:KCMConnection = $null
         Write-Host "Successfully Disconnected from KCM Server" -ForegroundColor Green
     }catch{

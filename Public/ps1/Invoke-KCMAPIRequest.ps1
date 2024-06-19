@@ -13,7 +13,8 @@ function Invoke-KCMAPIRequest {
         $res = Invoke-RestMethod -URi $URI `
             -Headers @{"Guacamole-Token" = $Script:KCMConnection.GetToken()} `
             -Method $Methode `
-            -ContentType $ContentType
+            -ContentType $ContentType `
+            -SkipCertificateCheck:$($script:KCMConnection.SkipCertificateCheck)
     }else{
         $body = ConvertTo-Json $body -Compress
         Write-Debug "Body: $body"
@@ -22,7 +23,8 @@ function Invoke-KCMAPIRequest {
             -Headers @{"Guacamole-Token" = $Script:KCMConnection.GetToken()}  `
             -Body $Body `
             -Method $Methode `
-            -ContentType $ContentType
+            -ContentType $ContentType `
+            -SkipCertificateCheck:$($script:KCMConnection.SkipCertificateCheck)
     }
 
     if(![string]::IsNullOrEmpty($res)){
