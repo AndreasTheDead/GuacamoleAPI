@@ -4,7 +4,7 @@ function Connect-KCMAPI {
         #[string][ValidatePattern("(^(http(s)?:\/\/.)[-a-zA-Z0-9:./]{2,256}$)")]$BaseURL,
         [string][Parameter(Position=1,mandatory=$true)][ValidateScript({$_ -match "(^(http(s)?:\/\/.)[-a-zA-Z0-9:./]{2,256}$)" -and $_ -notlike "*/" -and $_ -notlike "*/api*"})]$BaseURL,
         [string][Parameter(Position=2,mandatory=$false)][ValidateSet("mysql","sqlserver","postgresql","mysql-shared","sqlserver-shared","postgresql-shared")]$DataSource,
-        [string][Parameter(Position=3,mandatory=$false)]$SkipCertificateCheck
+        [switch][Parameter(Position=3,mandatory=$false)]$SkipCertificateCheck
     )
     $URI = "$BaseURL/api/tokens"
     Write-Debug "Request URL = $URI"
@@ -23,7 +23,7 @@ function Connect-KCMAPI {
         
         $script:KCMConnection = [KCMAPIConnection]::new()
         $script:KCMConnection.BaseURL = $BaseURL
-        $script:KCMConnection.SkipCertificateCheck = !$SkipCertificateCheck
+        $script:KCMConnection.SkipCertificateCheck = $SkipCertificateCheck
         $script:KCMConnection.Token = (ConvertTo-SecureString $res.authToken -AsPlainText -Force)
         
         if($DataSource){
