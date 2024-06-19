@@ -1,4 +1,4 @@
-function Connect-GuacamoleAPI {
+function Connect-KCMAPI {
     param (
         [pscredential][Parameter(Position=0,mandatory=$true)]$credentials,
         #[string][ValidatePattern("(^(http(s)?:\/\/.)[-a-zA-Z0-9:./]{2,256}$)")]$BaseURL,
@@ -19,28 +19,28 @@ function Connect-GuacamoleAPI {
             -Body $Body `
             -Method Post
         
-        $script:GuacamoleConnection = [GuacamoleAPIConnection]::new()
-        $script:GuacamoleConnection.BaseURL = $BaseURL
-        $script:GuacamoleConnection.Token = (ConvertTo-SecureString $res.authToken -AsPlainText -Force)
+        $script:KCMConnection = [KCMAPIConnection]::new()
+        $script:KCMConnection.BaseURL = $BaseURL
+        $script:KCMConnection.Token = (ConvertTo-SecureString $res.authToken -AsPlainText -Force)
         
         if($DataSource){
             if($DataSource -in $res.availableDataSources){
-                $script:GuacamoleConnection.DataSource = $DataSource
+                $script:KCMConnection.DataSource = $DataSource
             }else{
                 Write-Error "Selected DataSource is not avalibale, falling back to Token respone source: $($res.dataSource)"
-                $script:GuacamoleConnection.DataSource = $res.dataSource
+                $script:KCMConnection.DataSource = $res.dataSource
             }
         }else{
-            $script:GuacamoleConnection.DataSource = $res.dataSource
+            $script:KCMConnection.DataSource = $res.dataSource
         }
         
-        Write-Debug "GuacamoleConnectionObject:"
-        Write-Debug "BaseURL: $($script:GuacamoleConnection.BaseURL)"
-        Write-Debug "DataSource: $($script:GuacamoleConnection.DataSource)"
-        Write-Debug "Token: $($Script:GuacamoleConnection.GetToken())"
-        Write-Host "Successfully Connected to Guacamole Server" -ForegroundColor Green
+        Write-Debug "KCMConnectionObject:"
+        Write-Debug "BaseURL: $($script:KCMConnection.BaseURL)"
+        Write-Debug "DataSource: $($script:KCMConnection.DataSource)"
+        Write-Debug "Token: $($Script:KCMConnection.GetToken())"
+        Write-Host "Successfully Connected to KCM Server" -ForegroundColor Green
     }catch{
-        Write-Host "Error While connectiong to Guacamole Server"
+        Write-Host "Error While connectiong to KCM Server"
         Write-Host "Error: $_"
     }
 }

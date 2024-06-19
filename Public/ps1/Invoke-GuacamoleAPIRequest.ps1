@@ -1,4 +1,4 @@
-function Invoke-GuacamoleAPIRequest {
+function Invoke-KCMAPIRequest {
     param (
         [Parameter(Mandatory=$true)] [ValidateNotNullOrEmpty()] [string]$APIEndpoint,
         [Parameter(Mandatory=$false)] [ValidateNotNullOrEmpty()] $Body,
@@ -6,12 +6,12 @@ function Invoke-GuacamoleAPIRequest {
         [Parameter(Mandatory=$false)] [ValidateNotNullOrEmpty()] [string]$ContentType = "application/json"
     )
 
-    $URI = "$($Script:GuacamoleConnection.BaseURL)/$APIEndpoint"
+    $URI = "$($Script:KCMConnection.BaseURL)/$APIEndpoint"
     Write-Debug "$Methode`:$URI"
 
     if([string]::IsNullOrEmpty($body)){
         $res = Invoke-RestMethod -URi $URI `
-            -Headers @{"Guacamole-Token" = $Script:GuacamoleConnection.GetToken()} `
+            -Headers @{"Guacamole-Token" = $Script:KCMConnection.GetToken()} `
             -Method $Methode `
             -ContentType $ContentType
     }else{
@@ -19,7 +19,7 @@ function Invoke-GuacamoleAPIRequest {
         Write-Debug "Body: $body"
         #Write-Debug $body
         $res = Invoke-RestMethod -URi $URI `
-            -Headers @{"Guacamole-Token" = $Script:GuacamoleConnection.GetToken()}  `
+            -Headers @{"Guacamole-Token" = $Script:KCMConnection.GetToken()}  `
             -Body $Body `
             -Method $Methode `
             -ContentType $ContentType

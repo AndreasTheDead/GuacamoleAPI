@@ -1,14 +1,14 @@
-function Disconnect-GuacamoleAPI {
-    $uri = "$($script:GuacamoleConnection.BaseURL)/api/session"
+function Disconnect-KCMAPI {
+    $uri = "$($script:KCMConnection.BaseURL)/api/session"
     Write-Debug "Request URL = $URI"
-    $Header = @{"Guacamole-Token" = $Script:GuacamoleConnection.GetToken()}
+    $Header = @{"Guacamole-Token" = $Script:KCMConnection.GetToken()}
 
     try{
         Invoke-RestMethod -Uri $uri -Headers $Header -Method Delete
-        $script:GuacamoleConnection = $null
-        Write-Host "Successfully Disconnected from Guacamole Server" -ForegroundColor Green
+        $script:KCMConnection = $null
+        Write-Host "Successfully Disconnected from KCM Server" -ForegroundColor Green
     }catch{
-        Write-Host "Error While disconnecting from Guacamole Server"
+        Write-Host "Error While disconnecting from KCM Server"
         Write-Host "Error: $_"
     }
 }

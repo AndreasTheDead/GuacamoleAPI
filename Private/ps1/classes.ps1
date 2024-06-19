@@ -4,7 +4,7 @@
 #
 ###
 
-class GuacamoleAPIConnection {
+class KCMAPIConnection {
 	[securestring]$Token
 	[string]$BaseURL
 	[string]$DataSource
